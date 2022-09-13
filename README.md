@@ -3,7 +3,7 @@
 ## Grain growth described by multi-phase field model, implemented by cross-platform parallel (CPU/**GPU**) computing language of Taichi
 
 <center class="half">
-    <img src="./tests/polycrystal/polycrystal.gif" width="350" /><img src="./tests/grain_boundary/grain_boundary.gif" width="350"/>
+    <img src="./tests/polycrystal/polycrystal.gif" width="300" /><img src="./tests/grain_boundary/grain_boundary.gif" width="300"/>
 </center>
 
 ## Installation and Usage
