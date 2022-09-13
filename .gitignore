@@ -1,0 +1,2 @@
+tests/**/*.png
+tests/makeGif.py
