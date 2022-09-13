@@ -54,7 +54,7 @@ $$\Psi[\bf{\phi(x)}] = \Psi_{GB} + \Psi_{pen} = \Sigma_{p < q}U_{pq}|\phi_{p}\ph
 ## Governing Equation (decline of free energy)
 [Steinbach's generalization of Ginzburg-Landau equation for multi-phase field](https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293) is utilized to driving the phase-evolution, expressed as:
 
-$$\dot{\phi}_{p}(\bf{x}) = -\frac{1}{n}\sum_{q}M_{pq}(\frac{\delta\Psi}{\delta\phi_{p}}-\frac{\delta\Psi}{\delta\phi_{q}})$$ 
+$$\dot{\phi}_{p}(\bf{x}) = -\frac{1}{n}\sum_{q}^{}M_{pq}(\frac{\delta\Psi}{\delta\phi_{p}}-\frac{\delta\Psi}{\delta\phi_{q}})$$ 
 
 where n is the total number of different phases, $M_{pq}$ is the mobility between p and q, and the summation acts on all different phases. $-\delta\Psi/\delta\phi_{p}$ is the driving force for phase p, and expressed as:
 $$-\frac{\delta\Psi}{\delta\phi_{p}} = -\frac{\partial\Psi}{\partial\phi_{p}} + \nabla\cdot\frac{\partial\Psi}{\partial\nabla\phi_{p}}$$
