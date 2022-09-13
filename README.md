@@ -46,10 +46,10 @@ $$\Psi_{GB}=\Sigma_{p < q}U_{pq}|\phi_{p}\phi_{q}| + (\kappa/2)\Sigma_{p}(\nabla
 where the first term is chemical energy and the second term is gradient energy. $U_{pq}$ is chemical energy coefficient of grain boundary between p and q, $\kappa$ is gradient energy coefficient. 
 
 The additional energy penalty for multi-phase mixture (prevent mist-like phase-distribution obscuring the grain morphology) is:
-$$\Psi_{pen} = U_{pen}\Sigma_{p<q<r}|\phi_{p}\phi_{q}\phi_{r}|$$
+$$\Psi_{pen} = U_{pen}\Sigma_{p < q < r}|\phi_{p}\phi_{q}\phi_{r}|$$
 
 Thus, total free energy (functional of order parameters) is expressed as:
-$$\Psi[\bf{\phi(x)}] = \Psi_{GB} + \Psi_{pen} = \Sigma_{p < q}U_{pq}|\phi_{p}\phi_{q}| + (\kappa/2)\Sigma_{p}(\nabla\phi_{p})^{2} + U_{pen}\Sigma_{p<q<r}|\phi_{p}\phi_{q}\phi_{r}|$$
+$$\Psi[\bf{\phi(x)}] = \Psi_{GB} + \Psi_{pen} = \Sigma_{p < q}U_{pq}|\phi_{p}\phi_{q}| + (\kappa/2)\Sigma_{p}(\nabla\phi_{p})^{2} + U_{pen}\Sigma_{p < q < r}|\phi_{p}\phi_{q}\phi_{r}|$$
 
 ## Governing Equation (decline of free energy)
 [Steinbach's generalization of Ginzburg-Landau equation for multi-phase field](https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293) is utilized to driving the phase-evolution, expressed as:
