@@ -5,8 +5,11 @@
 | <img src="./tests/polycrystal/polycrystal.gif" width="350" /> | <img src="./tests/grain_boundary/grain_boundary.gif" width="350"/> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 
+| <img src="./tests/time_36.4800s_phaseID.png" width="350" /> | <img src="./tests/time_36.4800s.png" width="350" /> |
+| ---------------------------------------------------------- | --------------------------------------------------- |
 
 ## Installation and Usage
+
 1. install Python (3.8+) and pip, then install Taichi, numpy, and matplotlib
 > pip install numpy <br>
 > pip install taichi <br>
@@ -42,14 +45,14 @@ Obviously, the sum from $\phi_{0}(\boldsymbol{x})$ to $\phi_{n-1}(\boldsymbol{x}
 Free energy is expressed as the functional of phase field (order parameters field). System will evolve from higher energe state to lower energy state. The decline of free energy drives the system to evolve, generating the grain growth process. 
 
 It is expected that the grain boundary has higher energy compared to the grain's internal. Grain boundary's energy is expressed as:
-$$\Psi_{GB}=\Sigma_{p < q}U_{pq}|\phi_{p}\phi_{q}| + (\kappa/2)\Sigma_{p}(\nabla\phi_{p})^{2}$$
+$$\Psi_{GB}=\sum_{p < q} U_{pq}|\phi_{p}\phi_{q}| + \frac{\kappa}{2}\sum_{p} (\nabla\phi_{p})^{2}$$
 where the first term is chemical energy and the second term is gradient energy. $U_{pq}$ is chemical energy coefficient of grain boundary between p and q, $\kappa$ is gradient energy coefficient. 
 
 The additional energy penalty for multi-phase mixture (prevent mist-like phase-distribution obscuring the grain morphology) is:
-$$\Psi_{pen} = U_{pen}\Sigma_{p < q < r}|\phi_{p}\phi_{q}\phi_{r}|$$
+$$\Psi_{pen} = U_{pen}\sum_{p < q < r} |\phi_{p}\phi_{q}\phi_{r}|$$
 
 Thus, total free energy (functional of order parameters) is expressed as:
-$$\Psi[\boldsymbol{\phi(x)}] = \Psi_{GB} + \Psi_{pen} = \Sigma_{p < q}U_{pq}|\phi_{p}\phi_{q}| + (\kappa/2)\Sigma_{p}(\nabla\phi_{p})^{2} + U_{pen}\Sigma_{p < q < r}|\phi_{p}\phi_{q}\phi_{r}|$$
+$$\Psi[\boldsymbol{\phi(x)}] = \Psi_{GB} + \Psi_{pen} = \sum_{p < q} U_{pq}|\phi_{p}\phi_{q}| + \frac{\kappa}{2}\sum_{p} (\nabla\phi_{p})^{2} + U_{pen}\sum_{p < q < r} |\phi_{p}\phi_{q}\phi_{r}|$$
 
 ## Governing Equation (decline of free energy)
 [Steinbach's generalization of Ginzburg-Landau equation for multi-phase field](https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293) is utilized to driving the phase-evolution, expressed as:
