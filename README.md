@@ -44,25 +44,30 @@ Obviously, the sum from $\phi_{0}(\boldsymbol{x})$ to $\phi_{n-1}(\boldsymbol{x}
 ### Free Energy 
 Free energy is expressed as the functional of phase field (order parameters field). System will evolve from higher energe state to lower energy state. The decline of free energy drives the system to evolve, generating the grain growth process. 
 
-It is expected that the grain boundary has higher energy compared to the grain's internal. Grain boundary's energy is expressed as:
-$$\Psi_{GB}=\sum_{p < q} U_{pq}|\phi_{p}\phi_{q}| + \frac{\kappa}{2}\sum_{p} (\nabla\phi_{p})^{2}$$
+It is expected that the grain boundary has higher energy compared to the grain's internal. Grain boundary's energy density is expressed as:
+$$\psi_{GB}=\sum_{p < q} U_{pq}|\phi_{p}\phi_{q}| + \frac{\kappa}{2}\sum_{p} (\nabla\phi_{p})^{2}$$
 where the first term is chemical energy and the second term is gradient energy. $U_{pq}$ is chemical energy coefficient of grain boundary between p and q, $\kappa$ is gradient energy coefficient. 
 
 The additional energy penalty for multi-phase mixture (prevent mist-like phase-distribution obscuring the grain morphology) is:
-$$\Psi_{pen} = U_{pen}\sum_{p < q < r} |\phi_{p}\phi_{q}\phi_{r}|$$
+$$\psi_{pen} = U_{pen}\sum_{p < q < r} |\phi_{p}\phi_{q}\phi_{r}|$$
 
 Thus, total free energy (functional of order parameters) is expressed as:
-$$\Psi[\boldsymbol{\phi(x)}] = \Psi_{GB} + \Psi_{pen} = \sum_{p < q} U_{pq}|\phi_{p}\phi_{q}| + \frac{\kappa}{2}\sum_{p} (\nabla\phi_{p})^{2} + U_{pen}\sum_{p < q < r} |\phi_{p}\phi_{q}\phi_{r}|$$
+$$\Psi[\boldsymbol{\phi(x)}] = \int_{\Omega}\psi(\boldsymbol{x})d\Omega = \int_{\Omega} (\psi_{GB} + \psi_{pen})d\Omega = \int_{\Omega} (\sum_{p < q} U_{pq}|\phi_{p}\phi_{q}| + \frac{\kappa}{2}\sum_{p} (\nabla\phi_{p})^{2} + U_{pen}\sum_{p < q < r} |\phi_{p}\phi_{q}\phi_{r}|)d\Omega$$
+
+where $\Omega$ is the domain of the entire system. 
 
 ## Governing Equation (decline of free energy)
 [Steinbach's generalization of Ginzburg-Landau equation for multi-phase field](https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293) is utilized to driving the phase-evolution, expressed as:
 
 $$\dot{\phi_{p}}(\boldsymbol{x}) = -\frac{1}{n}\sum_{q} M_{pq}(\frac{\delta\Psi}{\delta\phi_{p}}-\frac{\delta\Psi}{\delta\phi_{q}})$$ 
 
-where n is the total number of different phases, $M_{pq}$ is the mobility between p and q, and the summation acts on all different phases. $-\delta\Psi/\delta\phi_{p}$ is the driving force for phase p, and expressed as:
-$$-\frac{\delta\Psi}{\delta\phi_{p}} = -\frac{\partial\Psi}{\partial\phi_{p}} + \nabla\cdot\frac{\partial\Psi}{\partial\nabla\phi_{p}}$$
+where n is the total number of different phases, $M_{pq}$ is the mobility between p and q, and the summation acts on all different phases. The minus variational derivative $-\delta\Psi/\delta\phi_{p}$ is the driving force for phase p, and expressed as:
+$$-\frac{\delta\Psi}{\delta\phi_{p}} = -\frac{\partial\psi}{\partial\phi_{p}} + \nabla\cdot\frac{\partial\psi}{\partial\nabla\phi_{p}}$$
 
 Using rate $\dot{\phi}_{p}(\boldsymbol{x})$, we can update the phase field during each time increment $\Delta t$ <br>, where the 4th-order **Runge-Kutta** method (**RK4**) is utilized as time integration scheme. 
+## Numerical scheme
++ Space discretization and partial differential operators utilize finite difference method (FDM).  
++ Time integration scheme utilizes 4th-order Runge-Kutta method (RK4). 
 
 ## References
 + Steinbach's generalization of Ginzburg-Landau equation for multi-phase field [https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293](https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293)
