@@ -56,7 +56,7 @@ $$\Psi[\boldsymbol{\phi(x)}] = \int_{\Omega}\psi(\boldsymbol{x})d\Omega = \int_{
 
 where $\Omega$ is the domain of the entire system. 
 
-## Governing Equation (decline of free energy)
+### Governing Equation (decline of free energy)
 [Steinbach's generalization of Ginzburg-Landau equation for multi-phase field](https://www.sciencedirect.com/science/article/abs/pii/S0167278999001293) is utilized to driving the phase-evolution, expressed as:
 
 $$\dot{\phi_{p}}(\boldsymbol{x}) = -\frac{1}{n}\sum_{q} M_{pq}(\frac{\delta\Psi}{\delta\phi_{p}}-\frac{\delta\Psi}{\delta\phi_{q}})$$ 
@@ -65,7 +65,7 @@ where n is the total number of different phases, $M_{pq}$ is the mobility betwee
 $$-\frac{\delta\Psi}{\delta\phi_{p}} = -\frac{\partial\psi}{\partial\phi_{p}} + \nabla\cdot\frac{\partial\psi}{\partial\nabla\phi_{p}}$$
 
 Using rate $\dot{\phi}_{p}(\boldsymbol{x})$, we can update the phase field during each time increment $\Delta t$ <br>, where the 4th-order **Runge-Kutta** method (**RK4**) is utilized as time integration scheme. 
-## Numerical scheme
+### Numerical scheme
 + Space discretization and partial differential operators utilize finite difference method (FDM).  
 + Time integration scheme utilizes 4th-order Runge-Kutta method (RK4). 
 
