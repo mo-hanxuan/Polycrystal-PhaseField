@@ -33,6 +33,10 @@ class Polycrystal():
         self.fluctuation = 0.01
         self.mobility = 0.02
 
+        ### variables for visualization
+        self.phaseID = ti.field(ti.f64, shape=(self.nx, self.ny))
+        self.grain_boundary = ti.field(ti.f64, shape=(self.nx, self.ny))
+
         ### parameters for RK4 method (use Runge-Kutta method for time integration)
         self.dtRatio_rk4 = ti.field(ti.f64, shape=(4)); self.dtRatio_rk4.from_numpy(np.array([0., 0.5, 0.5, 1.]))
         self.weights_rk4 = ti.field(ti.f64, shape=(4)); self.weights_rk4.from_numpy(np.array([1./6., 1./3., 1./3., 1./6.]))
@@ -142,6 +146,24 @@ class Polycrystal():
         self.rk4_total_update()
     
 
+    @ti.kernel
+    def update_phaseID(self, ):
+        """for visualization of different phases at different position"""
+        for I in ti.grouped(self.phi):
+            id = -1; maxVal = -1.
+            for p in range(self.phi[I].n):
+                if self.phi[I][p] > maxVal:
+                    id = p; maxVal = self.phi[I][p]
+            self.phaseID[I] = id
+    
+
+    @ti.kernel
+    def update_grain_boundary(self, ):
+        """for visualization, grain boundary ≈ 1; grain's internal ≈ 0"""
+        for I in ti.grouped(self.phi):
+            self.grain_boundary[I] = 1. - self.phi[I].max()
+    
+
 if __name__ == "__main__":
     ti.init(arch=ti.cuda, dynamic_index=True, default_fp=ti.f64)
     
@@ -162,31 +184,23 @@ if __name__ == "__main__":
         
         if (time_frames % 64 == 0):
             print('time_frames={}'.format(time_frames))
-            phi_np = polycrys.phi.to_numpy() 
-            grain_boundary = np.zeros(phi_np.shape[:2])
-            polycrys_np = np.zeros(phi_np.shape[:2])
-            for i in range(phi_np.shape[0]):
-                for j in range(phi_np.shape[1]):
-                    # ============= grain boundary ================
-                    grain_boundary[i, j] = 1. - max(phi_np[i, j, :])
-                    # === different grains in different colors ====
-                    polycrys_np[i, j] = max(range(len(phi_np[i, j, :])), 
-                                            key=lambda k: phi_np[i, j, k])
+            polycrys.update_grain_boundary()
+            polycrys.update_phaseID()
+            grain_boundary = polycrys.grain_boundary.to_numpy()
+            phaseID = polycrys.phaseID.to_numpy()
 
             # ==========plot the grain boundary================
             plt.figure(2); plt.clf()    
             plt.pcolor(grain_boundary, cmap=cm.jet)
             plt.title("grain boundary", size=16)
-            plt.draw()
-            plt.pause(0.001) 
+            plt.draw(); plt.pause(0.001) 
             if write_images and time_frames % 128 == 0:
                 plt.savefig(path2 + "time_{:.4f}s.png".format(time_frames * polycrys.dt))
 
             # ==========plot different grains(phases)==========
             plt.figure(3); plt.clf()
-            plt.pcolor(polycrys_np, cmap=cm.jet, vmin=0, vmax=polycrys.phase_nums-1)
+            plt.pcolor(phaseID, cmap=cm.jet, vmin=0, vmax=polycrys.phase_nums-1)
             plt.title("grains morphology", size=16)
-            plt.draw()
-            plt.pause(0.001) 
+            plt.draw(); plt.pause(0.001) 
             if write_images and time_frames % 128 == 0:
                 plt.savefig(path1 + "time_{:.4f}s.png".format(time_frames * polycrys.dt))
