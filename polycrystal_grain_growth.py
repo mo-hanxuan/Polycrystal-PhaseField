@@ -5,6 +5,7 @@
    
    using multi-phase field model to describe polycrystal, 
    applying Steinbach's generalization for Ginzburg-Landau equation in multi-phase problems,
+   repo's link: https://github.com/mo-hanxuan/Polycrystal-PhaseField
    for physical interpretation of this model, you can refer to Physica D 134 (1999) 385-393"""
 import numpy as np
 import taichi as ti
